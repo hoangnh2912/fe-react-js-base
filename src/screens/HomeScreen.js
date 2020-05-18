@@ -6,7 +6,7 @@ export default class HomeScreen extends Component {
     return (
       <TouchableOpacity
         onPress={() => NavigationUtil.navigation("/user")}
-        children={<Text children="sang man hinh home" />}
+        children={<Text children="dm quoc anh an Lon" />}
       />
     );
   }
