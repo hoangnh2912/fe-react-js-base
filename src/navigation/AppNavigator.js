@@ -8,7 +8,7 @@ export class AppNavigator extends Component {
   render() {
     return (
       <BrowserRouter ref={setHistory}>
-        <Route path="/react_js_base" exact component={HomeScreen} />
+        <Route path="/" exact component={HomeScreen} />
         <Route path="/user" exact component={UserScreen} />
       </BrowserRouter>
     );
