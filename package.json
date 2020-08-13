@@ -19,7 +19,7 @@
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3"
   },
-  "homepage": "https://neckgamervn.github.io/react_js_base/",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
