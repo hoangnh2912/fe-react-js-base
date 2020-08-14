@@ -19,47 +19,67 @@ export default class HomeScreen extends Component {
     var { board, turn } = this.state;
     if (board[x][y] != NONE) return;
     board[x][y] = turn;
+    this.genCheck(x, y, 3);
     this.setState(
       {
         board,
         turn: turn == X ? O : X,
       },
       () => {
-        if (this.isWin(x, y)) {
-          const val = JSON.stringify(board[x][y]);
-          setTimeout(() => {
-            alert(val + "win");
-            this.reset();
-          }, 100);
-        }
+        // if (this.isWin(x, y)) {
+        //   const val = JSON.stringify(board[x][y]);
+        //   setTimeout(() => {
+        //     alert(val + "win");
+        //     this.reset();
+        //   }, 100);
+        // }
       }
     );
   };
 
+  genCheck = (x, y, n, s = SIZE) => {
+    const { board } = this.state;
+    const from_x = Math.max(x - n + 1, 0),
+      to_x = Math.min(x + n, s),
+      from_y = Math.max(y - n + 1, 0),
+      to_y = Math.min(y + n, s);
+    // for (let i = from_x; i < to_x; i++) {
+    //   board[i][y] = X;
+    // }
+    for (let i = from_x, j = from_y; i < to_x, j < to_y; i++, j++) {
+      board[i][j] = X;
+    }
+    // for (let i = from_y; i < to_y; i++) {
+    //   board[x][i] = X;
+    // }
+  };
+
   isWin = (x, y) => {
     const { board } = this.state;
-    const n = board.length > 4 ? 4 : board.length;
+    const n = 3;
     const s = board[x][y];
-    for (var i = 0; i < n; i++) {
+
+    //check colum
+    for (let i = 0; i < n; i++) {
       if (board[x][i] != s) break;
       if (i == n - 1) return true;
     }
     //check row
-    for (var i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++) {
       if (board[i][y] != s) break;
       if (i == n - 1) return true;
     }
     //check diag
     if (x == y) {
       //we're on a diagonal
-      for (var i = 0; i < n; i++) {
+      for (let i = 0; i < n; i++) {
         if (board[i][i] != s) break;
         if (i == n - 1) return true;
       }
     }
     //check anti diag (thanks rampion)
     if (x + y == n - 1) {
-      for (var i = 0; i < n; i++) {
+      for (let i = 0; i < n; i++) {
         if (board[i][n - 1 - i] != s) break;
         if (i == n - 1) return true;
       }
