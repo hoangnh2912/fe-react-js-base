@@ -39,19 +39,28 @@ export default class HomeScreen extends Component {
 
   genCheck = (x, y, n, s = SIZE) => {
     const { board } = this.state;
-    const from_x = Math.max(x - n + 1, 0),
-      to_x = Math.min(x + n, s),
-      from_y = Math.max(y - n + 1, 0),
-      to_y = Math.min(y + n, s);
-    // for (let i = from_x; i < to_x; i++) {
-    //   board[i][y] = X;
-    // }
-    for (let i = from_x, j = from_y; i < to_x, j < to_y; i++, j++) {
-      board[i][j] = X;
+    const from_y = Math.max(x - n + 1, 0),
+      to_y = Math.min(x + n, s),
+      from_x = Math.max(y - n + 1, 0),
+      to_x = Math.min(y + n, s),
+      from_diag_left = Math.min(x - from_y, y - from_x),
+      to_diag_left = Math.min(to_y - x - 1, to_x - y - 1),
+      from_diag_right = Math.min(x - from_y, to_x - y - 1),
+      to_diag_right = Math.min(to_y - x - 1, y - from_x);
+
+    for (let i = from_y; i < to_y; i++) {
+      board[i][y] = X;
     }
-    // for (let i = from_y; i < to_y; i++) {
-    //   board[x][i] = X;
-    // }
+
+    console.log(to_diag_right);
+
+    board[x - from_diag_left][y - from_diag_left] = O;
+    board[to_diag_left + x][to_diag_left + y] = O;
+    board[x - from_diag_right][y + from_diag_right] = O;
+    board[x - to_diag_right][0] = "N";
+    for (let i = from_x; i < to_x; i++) {
+      board[x][i] = X;
+    }
   };
 
   isWin = (x, y) => {
